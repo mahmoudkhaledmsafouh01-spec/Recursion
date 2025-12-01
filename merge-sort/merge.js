@@ -1,15 +1,23 @@
 function merge(left, right) {
   const result = [];
+  let leftIndex = 0;
+  let rightIndex = 0;
 
-  while (left.length && right.length) {
-    if (left[0] < right[0]) {
-      result.push(left.shift());
+   // Merge without mutating the provided arrays to keep mergeSort pure for callers
+  while (leftIndex < left.length && rightIndex < right.length) {
+    if (left[leftIndex] < right[rightIndex]) {
+      result.push(left[leftIndex]);
+      leftIndex += 1;
     } else {
-      result.push(right.shift());
+       result.push(right[rightIndex]);
+       rightIndex += 1;
     }
   }
-
-  return [...result, ...left, ...right];
+return [
+    ...result,
+    ...left.slice(leftIndex),
+    ...right.slice(rightIndex),
+  ];
 }
 
 module.exports = merge;
